@@ -1,5 +1,6 @@
 package com.example.mahmoud.quizapp;
 
+import android.os.PersistableBundle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -25,6 +26,14 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        if (savedInstanceState != null)
+        {
+            score = savedInstanceState.getInt("score");
+            mIndex = savedInstanceState.getInt("index");
+        }else{
+            score = 0;
+            mIndex = 0;
+        }
         mTrueButton =(Button)findViewById(R.id.mButtonTrue);
         mFalseButton =(Button)findViewById(R.id.mButtonFalse);
         mQuestion = (TextView)findViewById(R.id.question);
@@ -32,6 +41,7 @@ public class MainActivity extends AppCompatActivity {
         mScore = (TextView) findViewById(R.id.score);
         mQuestion.setText(questionsAndAnswers[mIndex].getmQusetionId());
         mScore.setText("Score " +score+ "/" + questionsAndAnswers.length);
+
         View.OnClickListener myTrueListner = new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -68,12 +78,20 @@ public class MainActivity extends AppCompatActivity {
         if (mIndex == questionsAndAnswers.length - 1)
         {
             mQuestion.setText("your Score is " + score + "/" + questionsAndAnswers.length );
-            mTrueButton.setVisibility(View.GONE);
-            mFalseButton.setVisibility(View.GONE);
-
+            score = 0;
+            mIndex= 0;
+//            mTrueButton.setVisibility(View.GONE);
+//            mFalseButton.setVisibility(View.GONE);
             return ;
         }
         mIndex = (mIndex + 1)%questionsAndAnswers.length;
         mQuestion.setText(questionsAndAnswers[mIndex].getmQusetionId());
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putInt("score",score);
+        outState.putInt("index",mIndex);
     }
 }
