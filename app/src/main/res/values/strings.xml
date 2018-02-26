@@ -3,6 +3,6 @@
     <string name="trueAnswer">True</string>
     <string name="falseAnswer">False</string>
     <string name="question_1">Are you Boogy ?</string>
-    <string name="question_2">Aren't you Boogy ?</string>
+    <string name="question_2">Aren\'t you Boogy ?</string>
     <string name="question_3">Sure ?</string>
 </resources>
